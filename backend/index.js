@@ -1,17 +1,29 @@
 import express from 'express'
 import { people } from './data/people.js'
+import cors from 'cors'
 
 const PORT = 8080
 
 const app = express()
 
-app.use(
-  express.urlencoded({
-    extended: true
-  })
-)
+// app.use(
+//   express.urlencoded({
+//     extended: true
+//   })
+// )
 
+// app.use(express.json())
+const allowedOrigins = ['http://localhost:3000']
+
+cors.CorsOptions = {
+  origin: allowedOrigins
+}
+
+app.use(cors(cors.CorsOptions))
 app.use(express.json())
+
+
+
 
 app.get('/', (req, res) => {
   res.json(people.getAll())
